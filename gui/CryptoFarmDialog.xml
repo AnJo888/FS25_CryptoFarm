@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<GUI onOpen="onOpen" onClose="onClose">
+    <GuiElement profile="newLayer"/>
+    <Bitmap profile="dialogFullscreenBg" id="dialogBg"/>
+
+    <GuiElement profile="cfd_dialogBg" id="dialogElement">
+        <ThreePartBitmap profile="fs25_dialogBgMiddleSmall"/>
+        <ThreePartBitmap profile="fs25_dialogBgTopSmall"/>
+        <ThreePartBitmap profile="fs25_dialogBgBottom"/>
+
+        <GuiElement profile="fs25_dialogContentContainer">
+            <BoxLayout profile="cfd_mainBox">
+                <Text profile="cfd_titleText" text="Crypto Farm ATM"/>
+                <Text profile="cfd_balanceText" id="balanceText"/>
+
+                <GuiElement profile="cfd_spacer"/>
+
+                <TextInput profile="cfd_inputField" id="amountInput"
+                           onTextChanged="onInputTextChanged"
+                           enterWhenClickOutside="false"
+                           applyProfanityFilter="false">
+                    <ThreePartBitmap profile="cfd_inputOutline" absoluteSizeOffset="0px 0px"/>
+                </TextInput>
+            </BoxLayout>
+        </GuiElement>
+
+        <!-- Button bar -->
+        <BoxLayout profile="fs25_dialogButtonBox">
+            <Button profile="buttonOK" text="Buy" onClick="onClickBuy"/>
+            <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
+            <Button profile="buttonActivate" text="Sell" onClick="onClickSell"/>
+            <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
+            <Button profile="buttonBack" text="Exit" onClick="onClickClose"/>
+        </BoxLayout>
+    </GuiElement>
+
+    <GUIProfiles>
+
+        <Profile name="cfd_dialogBg" extends="fs25_dialogBg">
+            <size value="720px 370px"/>
+        </Profile>
+
+        <Profile name="cfd_mainBox" extends="emptyPanel" with="anchorTopCenter">
+            <size value="620px 250px"/>
+            <flowDirection value="vertical"/>
+            <alignmentX value="left"/>
+            <alignmentY value="top"/>
+            <elementSpacing value="8px"/>
+        </Profile>
+
+        <Profile name="cfd_titleText" extends="baseReference">
+            <size value="620px 32px"/>
+            <textSize value="20px"/>
+            <textBold value="true"/>
+            <textColor value="$preset_fs25_colorMainLight"/>
+            <textAlignment value="center"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+
+        <Profile name="cfd_balanceText" extends="baseReference">
+            <size value="620px 150px"/>
+            <textSize value="16px"/>
+            <textBold value="false"/>
+            <textColor value="$preset_fs25_colorMainLight"/>
+            <textAlignment value="center"/>
+            <textVerticalAlignment value="middle"/>
+            <textWrapWidth value="620"/>
+        </Profile>
+
+        <Profile name="cfd_spacer" extends="emptyPanel">
+            <size value="620px 8px"/>
+        </Profile>
+
+        <Profile name="cfd_inputField" extends="fs25_textInput" with="anchorTopCenter">
+            <size value="620px 36px"/>
+            <applyProfanityFilter value="false"/>
+            <handleFocus value="true"/>
+            <textAlignment value="center"/>
+            <textVerticalAlignment value="middle"/>
+            <textOffset value="0px 2px"/>
+            <imageSliceId value="noSlice"/>
+            <imageColor value="0 0 0 0"/>
+            <imageFocusedColor value="0 0 0 0"/>
+            <imageHighlightedColor value="0 0 0 0"/>
+            <imageDisabledColor value="0 0 0 0"/>
+        </Profile>
+
+        <Profile name="cfd_inputOutline" extends="baseReference">
+            <imageSliceId value="gui.3dShop_button_outline_middle"/>
+            <imageColor value="$preset_fs25_colorGrey"/>
+            <imageFocusedColor value="$preset_fs25_colorMainHighlight"/>
+            <imageHighlightedColor value="$preset_fs25_colorMainHighlight"/>
+            <imageDisabledColor value="$preset_fs25_colorGreyDark"/>
+            <startImageSize value="6px 0"/>
+            <startImageSliceId value="gui.3dShop_button_outline_left"/>
+            <startImageColor value="$preset_fs25_colorGrey"/>
+            <startImageFocusedColor value="$preset_fs25_colorMainHighlight"/>
+            <startImageHighlightedColor value="$preset_fs25_colorMainHighlight"/>
+            <startImageDisabledColor value="$preset_fs25_colorGreyDark"/>
+            <endImageSize value="6px 0"/>
+            <endImageSliceId value="gui.3dShop_button_outline_right"/>
+            <endImageColor value="$preset_fs25_colorGrey"/>
+            <endImageFocusedColor value="$preset_fs25_colorMainHighlight"/>
+            <endImageHighlightedColor value="$preset_fs25_colorMainHighlight"/>
+            <endImageDisabledColor value="$preset_fs25_colorGreyDark"/>
+        </Profile>
+
+    </GUIProfiles>
+</GUI>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<sounds>
+    <kaChing file="ka-ching.ogg" volume="1.0" loops="1" />
+</sounds>

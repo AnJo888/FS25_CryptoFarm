@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<l10n>
+    <texts>
+        <text name="cf_deposit" text="Einzahlen" />
+        <text name="cf_withdraw" text="Auszahlen" />
+        <text name="cf_balance" text="Crypto-Farm-Guthaben" />
+        <text name="cf_rate" text="Wechselkurs" />
+        <text name="function_criptoFarmATM" text="Guthaben ein- und auszahlen" />
+    </texts>
+</l10n>

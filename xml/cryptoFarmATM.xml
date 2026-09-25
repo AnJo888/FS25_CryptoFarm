@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--
+  type="simplePlaceable": usamos um tipo NATIVO do jogo de proposito, nao
+  um tipo customizado nosso. Tentamos um placeableType proprio chamado
+  "cryptoFarmATM" antes, mas isso causava erro de "Event already
+  registered" (duplicacao) no TypeManager. A solucao foi abandonar o tipo
+  customizado e usar hooking (Utils.appendedFunction em Placeable.onLoad/
+  onDelete/update, ver cryptoFarmATM.lua) para adicionar a logica do ATM
+  por cima de um placeable comum.
+-->
+<placeable type="cryptoFarmATM">
+    <storeData>
+        <name>
+            <en>Crypto Farm</en>
+            <pt>Crypto Farm</pt>
+        </name>
+        <image>store_cryptoFarm.dds</image>
+        <price>25000</price>
+        <functions>
+            <function>$l10n_function_cryptoFarmATM</function>
+        </functions>
+        <lifetime>100000</lifetime>
+        <dailyUpkeep>50</dailyUpkeep>
+        <rotation>0</rotation>
+        <brand>NONE</brand>
+        <species>PLACEABLE</species>
+        <canBeSold>true</canBeSold>
+        <showInStore>true</showInStore>
+        <category>miscellaneous</category>
+        <brush>
+            <type>placeable</type>
+            <category>buildings</category>
+            <tab>tools</tab>
+        </brush>
+    </storeData>
+
+    <base>
+        <filename>CryptoFarm.i3d</filename>
+    </base>
+
+    <!--
+      Mecanismo NATIVO do jogo para o icone flutuante (chave-de-boca/
+      interrogacao) sobre o trigger. Diferente do resto da nossa config
+      customizada, estas duas tags (triggerMarkers e i3dMappings) fazem
+      parte do schema oficial de placeable - motor renderiza sozinho,
+      sem precisarmos de script proprio pra isso.
+
+      "node" em triggerMarker usa o NOME do objeto (playerTriggerMarker).
+      "node" em i3dMapping usa o INDICE numerico: 0>2|0 = componente 0
+      (ATM) -> filho 2 (playerTrigger) -> filho 0 (playerTriggerMarker).
+      Confirme esse indice abrindo o i3d no GE10 se o icone nao aparecer -
+      as vezes a ordem dos filhos exportada difere da ordem no Blender.
+    -->
+    <triggerMarkers>
+        <triggerMarker node="playerTriggerMarker" filename="$data/shared/assets/marker/markerIconWrench.i3d" adjustToGround="false" />
+    </triggerMarkers>
+
+    <i3dMappings>
+        <i3dMapping id="playerTriggerMarker" node="0>2|0" />
+    </i3dMappings>
+
+    <!--
+      Configuracao da nossa especializacao customizada.
+      "lightNode" e "triggerNode" usam o NOME do objeto dentro do i3d
+      (nao o indice numerico) - o script Lua resolve o nome pra o nodeId
+      certo via I3DUtil, procurando dentro da arvore do componente.
+    -->
+    <cryptoFarmATM>
+        <lightNode node="0>1" />
+        <triggerNode node="0>2" />
+        <!-- Horario (formato 24h) em que a luz acende/apaga -->
+        <nightLight hourOn="18" hourOff="6" />
+        <!-- Taxas de transacao, em fracao (0.02 = 2%). Ajuste aqui sem
+             precisar mexer no script Lua. -->
+        <economy buyFee="0.02" sellFee="0.02" maxFeeAmount="200000" />
+    </cryptoFarmATM>
+</placeable>

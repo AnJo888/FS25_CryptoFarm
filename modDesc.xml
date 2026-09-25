@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--
+  ATUALIZADO: descVersion="107", confirmado em mod FS25 real e ativo
+  (TobiasF92/FS25_interactiveControl no GitHub). O valor anterior (97)
+  era um chute inicial marcado como incerto - uma versao de schema errada
+  pode ter contribuido para os erros estranhos que vinhamos vendo.
+-->
+<modDesc descVersion="111">
+    <author>AnJo888</author>
+    <version>0.1.0.0</version>
+    <title>
+        <en>Crypto Farm</en>
+        <pt>Crypto Farm</pt>
+    </title>
+    <description>
+        <en>Move funds between your farm account and a separate "crypto Farm" balance, with a floating exchange rate and transaction fee. Useful once your farm money is close to the game's 999,999,999 cap.</en>
+        <pt>Mova fundos entre a conta da fazenda e um saldo separado "crypto Farm", com cotação flutuante e taxa de transação. Útil quando o dinheiro da fazenda se aproxima do teto de 999.999.999 do jogo.</pt>
+    </description>
+    <iconFilename>icon_cryptoFarm.dds</iconFilename>
+
+    <multiplayer supported="false" />
+    <!--
+      supported="false" por enquanto: a lógica abaixo assume singleplayer
+      (getFarmId simplificado). Dá pra evoluir pra multiplayer depois,
+      mas exige sincronizar os eventos de depósito/saque pela rede
+      (Event classes), o que fica pro próximo passo.
+    -->
+
+    <extraSourceFiles>
+        <sourceFile filename="scripts/cryptoFarm.lua" />
+        <sourceFile filename="scripts/cryptoFarmATM.lua" />
+        <sourceFile filename="gui/CryptoFarmDialog.lua" />
+    </extraSourceFiles>
+
+    <!--
+      RESTAURADO: voltamos ao modelo de especializacao propria.
+      O bug real de "Event already registered" era o Class(cryptoFarmATM,
+      Placeable) dentro do cryptoFarmATM.lua (removido). Essa sintaxe
+      abaixo (placeableSpecializations + placeableTypes com
+      parent="simplePlaceable") bate com um mod FS25 real e publicado
+      (GMNGjoy/FS25_FarmFillStations), entao a aposta e que funcione
+      agora que o bug do Lua foi corrigido.
+    -->
+    <placeableSpecializations>
+        <specialization name="cryptoFarmATM" className="cryptoFarmATM" filename="scripts/cryptoFarmATM.lua" />
+    </placeableSpecializations>
+
+    <placeableTypes>
+        <type name="cryptoFarmATM" parent="simplePlaceable" className="Placeable" filename="$dataS/scripts/placeables/Placeable.lua">
+            <specialization name="cryptoFarmATM" />
+        </type>
+    </placeableTypes>
+
+    <actions>
+        <!-- Reservado para uma acao dedicada de ativacao, caso o sistema
+             de activatableObjects padrao nao seja suficiente. -->
+    </actions>
+
+    <l10n filenameprefix="translations/translation" />
+
+    <storeItems>
+        <storeItem xmlFilename="xml/cryptoFarmATM.xml" />
+    </storeItems>
+</modDesc>
